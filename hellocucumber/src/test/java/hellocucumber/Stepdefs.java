@@ -6,23 +6,38 @@ import cucumber.api.java.en.Then;
 import static org.junit.Assert.*;
 
 class IsItFriday {
-	static String isItFriday(String today) {
-		return null;
+    static String isItFriday(String today) {
+	if (today.equals("Friday")) {
+	  return "TGIF";
 	}
+    return "Nope";
+  }
 }
 
 public class Stepdefs {
 	private String today;
 	private String actualAnswer;
 
-	@Given("^today is Sunday$")
-	public void today_is_Sunday() {
-		today = "Sunday";
-	}
+//	@Given("^today is Sunday$")
+//	public void today_is_Sunday() {
+//		today = "Sunday";
+//	}
+//
+//	@Given("^today is Friday$")
+//	public void today_is_Friday(){
+//		this.today = "Friday";
+//		
+//	}
+	
+	@Given("^today is \"([^\"]*)\"$")
+    public void today_is(String today) {
+		this.today = today;
+    }
+	
 
 	@When("^I ask whether it's Friday yet$")
 	public void i_ask_whether_it_s_Friday_yet() {
-		actualAnswer = IsItFriday.isItFriday(today);
+		this.actualAnswer = IsItFriday.isItFriday(today);
 	}
 
 	@Then("^I should be told \"([^\"]*)\"$")
